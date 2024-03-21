@@ -363,7 +363,172 @@ fun main(args: Array<String>) {
 
     printAll("kotlin", "is", "fun")
 
+    println()
+
+    val player1 = Player()
+    val player2 = Player()
+    val team1 = Team(listOf(player1, player2), "team1")
+
+    println("Sayfa 74 = ${team1.name}")
+
+    println()
+
+    val list2 = SceneObjectList("player", "enemy", "npc")
+    list2.add("item")
+    println("Sayfa 75 = ${list2.get(2)}")
+
+    println()
+
+    val list3 = sceneObjectListOf("player", "enemy", "npc")
+    println("Sayfa 76 = $list3")
+
+    println()
+
+    val light = Light()
+    light.interact()
+
+    println()
+
+    val passwordField = PasswordField("password")
+    passwordField.render()
+
+    println()
+
+    // real life do while example
+    var tasksSubmitted = 0
+    var tasksDone = 0
+
+    while (tasksDone < 10){
+        tasksDone++
+
+    }
+
+    do {
+        tasksSubmitted++
+        println("Sayfa 84 = task submitted")
+    } while (tasksSubmitted < tasksDone)
+
+    println()
+
+    print("Sayfa 86 = ")
+
+    for (c in 'a'..'z'){
+        print(c)
+    }
+
+    print(" ")
+
+    for (c in 'z' downTo 'a' step 3){
+        print(c)
+    }
+
+    println()
+    println()
+
+    val n = 3
+    if (n in 1..10){
+        println("Sayfa 87 = $n is in range")
+    }
+
+    val n2 = 15
+    if (n2 !in 1..10){
+        println("Sayfa 87 = $n2 is out of range")
+    }
+
+    val num1: Int = 5
+    val num2: Int = 10
+    val num3: Int = 10
+
+    println("Sayfa 88 = ${num2 == num3}")
+    println("Sayfa 88 = ${num2 === num3}")
+
+    val num4: Int = 10
+    val num5: Int = 10
+    val num6: Int? = num4
+
+    println("Sayfa 88 = ${num4 === num5}")
+    println("Sayfa 88 = ${num4 === num6}")
+
+    println()
+
+    val movie1 = Movie("Inception", 2010)
+    val movie2 = Movie("Interstellar", 2014)
+
+    println("Sayfa 91 = equals: ${movie1.equals(movie2)}")
+    println("Sayfa 91 = hashCode() - movie1 ${movie1.hashCode()}")
+    println("Sayfa 91 = hashCode() - movie2 ${movie2.hashCode()}")
+
+    println("Sayfa 91 = toString() - movie1 ${movie1.toString()}")
+    println("Sayfa 91 = toString() - movie2 ${movie2.toString()}")
+
+    val copyMovie = movie1.copy(year = 2011)
+    println("Sayfa 91 = copy() - $copyMovie")
+
+    println()
+
+    val employee1 = Employee(1, "John Doe")
+    println("Sayfa 92 = ${employee1.component1()}")
 }
+
+data class Employee(val id: Int, val name: String) {
+    /*
+    operator fun component1(): Int {
+        return id
+    }
+    operator fun component2(): String {
+        return name
+
+    }
+    */
+}
+
+
+data class Movie(val title: String, val year: Int)
+open class TextArea(val text: String, val textType: String){
+    open fun render(){
+        println("Sayfa 78 = $textType: $text")
+    }
+}
+
+class PasswordField(text: String): TextArea(text, "password"){
+    override fun render() {
+        println("Sayfa 78 = password: $text")
+    }
+}
+
+open class SceneObject{
+    open fun interact(){
+        println("Sayfa 77 = interact with scene object")
+    }
+
+}
+
+class Light: SceneObject(){
+    override fun interact() {
+        println("Sayfa 77 = turn on the light")
+    }
+}
+
+fun<E> sceneObjectListOf(vararg elements: E) = SceneObjectList(*elements)
+
+class SceneObjectList<E>(vararg items: E){
+    private val items = items.toMutableList()
+
+    fun add(element: E){
+        items.add(element)
+    }
+
+    fun get(index: Int): E{
+        return items[index]
+    }
+
+    override fun toString(): String {
+        return "SceneObjectList(items=$items)"
+    }
+}
+class Player
+
+class Team(val playerList: List<Player>, val name: String)
 
 fun printAll(vararg messages: String){
     for (m in messages){
