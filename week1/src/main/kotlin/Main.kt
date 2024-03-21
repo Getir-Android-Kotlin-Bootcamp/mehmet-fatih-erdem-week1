@@ -1,4 +1,6 @@
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.HashSet
@@ -302,6 +304,104 @@ fun main(args: Array<String>) {
 
     println()
 
+    val cook = Cook()
+
+    with(cook){
+        getRecipe()
+        getIngredients()
+        cook()
+    }
+
+    println()
+
+    val user1 = User(1, "john doe").apply {
+        uname = "johndoe"
+    }
+
+    println("Sayfa 62 = ${user1.uname}, ${user1.name}, ${user1.id}")
+
+    println()
+
+    val stream = Files.newInputStream(Paths.get("src/main/kotlin/file.txt"))
+    stream.buffered().reader().use { reader ->
+        println("Sayfa 63 = ${reader.readText()}")
+    }
+
+    println()
+
+    genericFunction("generic function")
+
+    println()
+
+    var user2 = User(2, "jane doe")
+
+    user2 = user2.also {
+        println("Sayfa 66 = ${it.name}")
+        it.uname = "janedoe"
+    }
+
+    println("Sayfa 65 = ${user2}")
+
+    println()
+
+    // Sayfa 66 = loadImage()
+
+    sendMsgUser("hello")
+    sendMsgUser("hello", "johndoe")
+
+    println()
+
+    println("Sayfa 68 = ${5 add 3}")
+    println("Sayfa 68 = ${5.add(3)}")
+    println("Sayfa 68 = ${3 times "hello"}")
+
+    println()
+
+    println("Sayfa 69 = ${"hello" * 3}")
+
+    println()
+
+    printAll("kotlin", "is", "fun")
+
+}
+
+fun printAll(vararg messages: String){
+    for (m in messages){
+        println("Sayfa 70 = $m")
+    }
+}
+operator fun String.times(n: Int) = repeat(n)
+
+infix fun Int.times(str: String) = str.repeat(this)
+
+infix fun Int.add(x: Int): Int = this + x
+
+fun sendMsgUser(msg: String, name: String = "anonymous"){
+    println("Sayfa 67 = $msg, $name")
+}
+
+fun loadImage(): Unit = TODO("waiting for the graphics team to send the images")
+
+inline fun <reified T> genericFunction(value: T){
+    println("Sayfa 64 = $value")
+}
+
+data class User(
+    val id: Int,
+    val name: String,
+    var uname: String = "anonymous",
+)
+
+class Cook{
+    fun getRecipe() {
+        println("Sayfa 61 = get recipe")
+    }
+    fun getIngredients() {
+        println("Sayfa 61 = get ingredients")
+    }
+    fun cook() {
+        println("Sayfa 61 = cook")
+    }
 }
 
 fun theAnswer() = 55
